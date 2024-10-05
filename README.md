@@ -1,0 +1,2 @@
+# selfrack
+rackdeploy-auto
