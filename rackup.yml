@@ -43,7 +43,7 @@ services:
     privileged: true
     # depends_on:
     #   - nginx-proxy-manager
-    ports:
+    # ports:
       # - 9000:9000
       # - 9443:9443
     volumes:
