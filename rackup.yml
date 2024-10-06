@@ -56,6 +56,19 @@ services:
       myweb:
         ipv4_address: 172.18.0.3
 
+  browser:
+    container_name: filebrowser
+    restart: unless-stopped
+    volumes:
+      - '/root:/srv'
+      - './filebrowser/data:/data'
+      #- './filebrowser/filebrowser.db:/database.db'
+      #- './filebrowser/.filebrowser.json:/.filebrowser.json'
+    image: filebrowser/filebrowser
+    networks:
+      myweb:
+        ipv4_address: 172.18.0.7
+
 networks:
   myweb:
     external: true 
