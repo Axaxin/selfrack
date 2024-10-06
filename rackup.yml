@@ -1,1 +1,69 @@
-1
+version: '3'
+services:
+  npm:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: npmc
+    restart: unless-stopped
+    # ports:
+    #   - '80:80'
+    #   - '443:443'
+    #   - '81:81'
+    volumes:
+      - ./npm/data:/data
+      - ./npm/letsencrypt:/etc/letsencrypt
+    networks:
+      myweb:
+        ipv4_address: 172.18.0.4
+
+  xrayui:
+    # image: 'FranzKafkaYu/x-ui'
+    image: 'enwaiax/x-ui'
+    container_name: xui
+    restart: unless-stopped
+    volumes:
+      - ./xui/db/:/etc/x-ui/
+      - ./xui/cert/:/root/cert/
+    networks:
+      myweb:
+        ipv4_address: 172.18.0.5
+
+  ssh:
+    image: 'niruix/sshwifty'
+    container_name: sshwifty
+    restart: unless-stopped
+    # volumes:
+    #   -
+    networks:
+      myweb:
+        ipv4_address: 172.18.0.6
+
+  portainer:
+    image: 'portainer/portainer-ce'
+    container_name: portainer
+    privileged: true
+    # depends_on:
+    #   - nginx-proxy-manager
+    ports:
+      # - 9000:9000
+      # - 9443:9443
+    volumes:
+      - ./portainer/data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    networks:
+      # bridge:
+      #   external: true
+      myweb:
+        ipv4_address: 172.18.0.3
+
+networks:
+  # myweb:
+  #   driver: bridge
+  #   ipam:
+  #     config:
+  #       - subnet: 172.18.0.0/16
+# networks:
+#   bridge:
+#     external: true
+  myweb:
+    external: true 
