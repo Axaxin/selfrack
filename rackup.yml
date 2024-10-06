@@ -57,13 +57,13 @@ services:
         ipv4_address: 172.18.0.3
 
 networks:
+  myweb:
+    external: true 
   # myweb:
   #   driver: bridge
   #   ipam:
   #     config:
   #       - subnet: 172.18.0.0/16
-# networks:
 #   bridge:
 #     external: true
-  myweb:
-    external: true 
+  
